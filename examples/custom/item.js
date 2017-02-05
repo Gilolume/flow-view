@@ -1,4 +1,4 @@
-import React from 'react'
+import Inferno from 'inferno'
 import { Canvas } from 'flow-view'
 import { Node } from 'flow-view/components'
 

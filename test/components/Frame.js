@@ -1,10 +1,10 @@
 import dom from 'cheerio'
-import React from 'react'
-import reactDom from 'react-dom/server'
+import Inferno from 'inferno' // eslint-disable-line no-unused-vars
+import InfernoServer from 'inferno-server'
 import Frame from 'components/Frame'
 import test from 'tape'
 
-const render = reactDom.renderToStaticMarkup
+const render = InfernoServer.renderToString
 
 test('Frame component', (t) => {
   const height = 100

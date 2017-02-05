@@ -1,5 +1,3 @@
-import { PropTypes } from 'react'
-
 /*
 
 Palette from https://www.materialpalette.com/lime/grey
@@ -18,8 +16,9 @@ text / icons #212121
 divider color #BDBDBD
 */
 
-const defaultProps = {
+module.exports = {
   fontFamily: 'Courier',
+  fontSize: 17,
   frameBorder: '1px solid #F0F4C3',
   darkPrimaryColor: '#AFB42B',
   primaryColor: '#CDDC39',
@@ -31,18 +30,3 @@ const defaultProps = {
   pinSize: 10
 }
 
-const propTypes = PropTypes.shape({
-  fontFamily: PropTypes.string.isRequired,
-  primaryColor: PropTypes.string.isRequired,
-  lineWidth: PropTypes.number.isRequired,
-  linkColor: PropTypes.string.isRequired,
-  nodeBarColor: PropTypes.string.isRequired,
-  nodeBodyHeight: PropTypes.number.isRequired,
-  pinColor: PropTypes.string.isRequired,
-  pinSize: PropTypes.number.isRequired
-}).isRequired
-
-export default {
-  defaultProps,
-  propTypes
-}

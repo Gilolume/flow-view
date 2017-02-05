@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import Inferno from 'inferno' // eslint-disable-line no-unused-vars
+import Component from 'inferno-component'
 
 const hidden = { display: 'none', overflow: 'hidden' }
 const visible = { display: 'inline', overflow: 'visible' }
@@ -80,21 +81,6 @@ class Selector extends Component {
       </foreignObject>
     )
   }
-}
-
-Selector.propTypes = {
-  createNode: PropTypes.func.isRequired,
-  nodelist: PropTypes.array,
-  pointer: PropTypes.shape({
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired
-  }),
-  show: PropTypes.bool.isRequired
-}
-
-Selector.defaultProps = {
-  height: 20,
-  width: 200
 }
 
 export default Selector

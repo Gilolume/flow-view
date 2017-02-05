@@ -1,6 +1,6 @@
 # flow-view
 
-> is a visual editor for [Dataflow programming][dataflow_wikipedia], powered by [React]
+> is a visual editor for [Dataflow programming][dataflow_wikipedia]
 
 [Description](#description) |
 [Installation](#installation) |
@@ -37,7 +37,7 @@ The following features are implemented:
 
 * Create nodes and links using a visual interface.
 * SVG server side rendering.
-* Custom items: nodes links can be customized using React.
+* Custom items: nodes links can be customized.
 * Events are emitted to achieve integration with other packages.
 
 > Let's give Node.js a common visual interface. Use *flow-view*!
@@ -74,14 +74,15 @@ npm install flow-view
 > flow-view Canvas constructor
 
 * **@param** `{String}` *containerId*
-* **@param** `{Object}` *[item]* collection to be customized
-* **@param** `{Object}` *[item.link]* collection of custom links
-* **@param** `{Object}` *[item.link.DefaultLink]*
-* **@param** `{Object}` *[item.node]* collection of custom nodes
-* **@param** `{Object}` *[item.node.DefaultNode]*
-* **@param** `{Object}` *[item.nodeList]* used for nodes autocompletion
-* **@param** `{Object}` *[item.util]*
-* **@param** `{Function}` *[item.util.typeOfNode]*
+* **@param** `{Object}` *[opt]* customization options
+* **@param** `{Object}` *[opt.link]* collection of custom links
+* **@param** `{Object}` *[opt.link.DefaultLink]*
+* **@param** `{Object}` *[opt.node]* collection of custom nodes
+* **@param** `{Object}` *[opt.node.DefaultNode]*
+* **@param** `{Object}` *[opt.nodeList]* used for nodes autocompletion
+* **@param** `{Object}` *[opt.theme]* see [Theme](#theme)
+* **@param** `{Object}` *[opt.util]*
+* **@param** `{Function}` *[opt.util.typeOfNode]*
 * **@returns** `{Object}` *canvas*
 
 Suppose your *containerId* is `drawing`.
@@ -155,6 +156,7 @@ canvas.render({
 Theme is a prop object with the following attributes
 
 * fontFamily
+* fontSize
 * frameBorder
 * darkPrimaryColor
 * primaryColor
@@ -257,7 +259,6 @@ For instance: client side examples use hot reload, and are transpiled on the fly
 
 [dflow]: http://g14n.info/dflow "dflow"
 [dataflow_wikipedia]: https://en.wikipedia.org/wiki/Dataflow_programming "Dataflow programming"
-[React]: https://facebook.github.io/react/
 [example_basic_usage]: https://github.com/fibo/flow-view/blob/master/examples/basic/usage.js
 [example_custom_item]: https://github.com/fibo/flow-view/blob/master/examples/custom/item.js
 [example_empty_canvas]: https://github.com/fibo/flow-view/blob/master/examples/empty/canvas.js

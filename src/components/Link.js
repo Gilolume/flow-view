@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react'
+import Inferno from 'inferno' // eslint-disable-line no-unused-vars
+import Component from 'inferno-component'
 import ignoreEvent from '../utils/ignoreEvent'
-import theme from './theme'
 
 class Link extends Component {
   render () {
@@ -92,36 +92,6 @@ class Link extends Component {
       </g>
     )
   }
-}
-
-Link.propTypes = {
-  deleteLink: PropTypes.func.isRequired,
-  id: PropTypes.string,
-  from: PropTypes.array,
-  onCreateLink: PropTypes.func.isRequired,
-  startDraggingLinkTarget: PropTypes.func.isRequired,
-  pinSize: PropTypes.number.isRequired,
-  selected: PropTypes.bool.isRequired,
-  selectLink: PropTypes.func.isRequired,
-  sourceSelected: PropTypes.bool.isRequired,
-  targetSelected: PropTypes.bool.isRequired,
-  theme: theme.propTypes,
-  to: PropTypes.array,
-  x1: PropTypes.number.isRequired,
-  y1: PropTypes.number.isRequired,
-  x2: PropTypes.number.isRequired,
-  y2: PropTypes.number.isRequired
-}
-
-Link.defaultProps = {
-  deleteLink: Function.prototype,
-  onCreateLink: Function.prototype,
-  startDraggingLinkTarget: Function.prototype,
-  selected: false,
-  selectLink: Function.prototype,
-  sourceSelected: false,
-  targetSelected: false,
-  theme: theme.defaultProps
 }
 
 export default Link

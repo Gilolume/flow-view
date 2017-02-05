@@ -1,16 +1,17 @@
-import React, { Component, PropTypes } from 'react'
-import { findDOMNode } from 'react-dom'
+import Inferno from 'inferno' // eslint-disable-line no-unused-vars
+import Component from 'inferno-component'
 
 import no from 'not-defined'
 
-import computeNodeWidth from '../utils/computeNodeWidth'
 import DefaultLink from './Link'
 import DefaultNode from './Node'
-import theme from './theme'
-import ignoreEvent from '../utils/ignoreEvent'
-
-import xOfPin from '../utils/xOfPin'
 import Selector from './Selector'
+
+import computeNodeWidth from '../utils/computeNodeWidth'
+import ignoreEvent from '../utils/ignoreEvent'
+import xOfPin from '../utils/xOfPin'
+
+var defaultTheme = require('./theme')
 
 const isShift = (code) => (
   (code === 'ShiftLeft') || (code === 'ShiftRight')
@@ -36,6 +37,7 @@ class Frame extends Component {
 
   componentDidMount () {
     const {
+      container,
       createInputPin,
       createOutputPin,
       deleteInputPin,
@@ -45,8 +47,6 @@ class Frame extends Component {
     } = this.props
 
     const setState = this.setState.bind(this)
-
-    const container = findDOMNode(this).parentNode
 
     document.addEventListener('keydown', ({ code }) => {
       const { endDragging } = this.props
@@ -172,24 +172,21 @@ class Frame extends Component {
   }
 
   render () {
-    const {
+    var {
       createInputPin,
       createLink,
       createNode,
       createOutputPin,
+      custom,
       deleteInputPin,
       deleteLink,
       deleteNode,
       deleteOutputPin,
       dragItems,
       endDragging,
-      fontSize,
-      item,
       model,
-      nodeList,
       selectLink,
       selectNode,
-      theme,
       updateLink,
       view
     } = this.props
@@ -202,16 +199,8 @@ class Frame extends Component {
       showSelector
     } = this.state
 
-    const {
-      frameBorder,
-      fontFamily,
-      lineWidth,
-      nodeBodyHeight,
-      pinSize
-    } = theme
-
-    let height = dynamicView.height || view.height
-    let width = dynamicView.width || view.width
+    var height = dynamicView.height || view.height
+    var width = dynamicView.width || view.width
 
     // Remove border, otherwise also server side SVGx renders
     // miss the bottom and right border.
@@ -219,27 +208,55 @@ class Frame extends Component {
     height = height - 2 * border
     width = width - 2 * border
 
-    const typeOfNode = item.util.typeOfNode
+    var defaultUtil = {
+      typeOfNode: function () { return 'DefaultNode' }
+    }
 
-    const Link = item.link.DefaultLink
+    if (no(custom)) {
+      custom = {
+        theme: null,
+        link: null,
+        node: null,
+        nodeList: [],
+        util: defaultUtil
+      }
+    }
+
+    var theme = custom.theme || defaultTheme
+
+    var fontSize = theme.fontSize || defaultTheme.fontSize
+    var frameBorder = theme.frameBorder || defaultTheme.frameBorder
+    var fontFamily = theme.fontFamily || defaultTheme.fontFamily
+    var nodeBodyHeight = theme.nodeBodyHeight || defaultTheme.nodeBodyHeight
+    var pinSize = theme.pinSize || defaultTheme.pinSize
+
+    if (no(custom.link)) custom.link = {}
+    if (no(custom.link.DefaultLink)) custom.link.DefaultLink = DefaultLink
+    var Link = custom.link.DefaultLink
+
+    if (no(custom.node)) custom.node = {}
+    if (no(custom.node.DefaultNode)) custom.node.DefaultNode = DefaultNode
+    var Node = custom.node.Defaultnode
+
+    var typeOfNode = custom.util.typeOfNode || defaultUtil.typeOfNode
 
     const setState = this.setState.bind(this)
 
     const coordinatesOfLink = ({ from, to }) => {
-      let x1 = null
-      let y1 = null
-      let x2 = null
-      let y2 = null
+      var x1 = null
+      var y1 = null
+      var x2 = null
+      var y2 = null
 
-      const nodeIds = Object.keys(view.node)
-      const idEquals = (x) => (id) => (id === x[0])
-      const sourceId = (from ? nodeIds.find(idEquals(from)) : null)
-      const targetId = (to ? nodeIds.find(idEquals(to)) : null)
+      var nodeIds = Object.keys(view.node)
+      var idEquals = (x) => (id) => (id === x[0])
+      var sourceId = (from ? nodeIds.find(idEquals(from)) : null)
+      var targetId = (to ? nodeIds.find(idEquals(to)) : null)
 
-      let computedWidth = null
+      var computedWidth = null
 
       if (sourceId) {
-        const source = view.node[sourceId]
+        var source = view.node[sourceId]
 
         if (no(source.outs)) source.outs = {}
 
@@ -255,7 +272,7 @@ class Frame extends Component {
       }
 
       if (targetId) {
-        const target = view.node[targetId]
+        var target = view.node[targetId]
 
         if (no(target.ins)) target.ins = {}
 
@@ -452,7 +469,7 @@ class Frame extends Component {
         return
       }
 
-      let selectedItems = Object.assign([], this.state.selectedItems)
+      var selectedItems = Object.assign([], this.state.selectedItems)
 
       const index = selectedItems.indexOf(id)
 
@@ -531,8 +548,8 @@ class Frame extends Component {
             y
           } = node
 
-          const nodeType = typeOfNode(node)
-          const Node = item.node[nodeType]
+          var nodeType = typeOfNode(node)
+          var Node = custom.node[nodeType]
 
           return (
             <Node key={i}
@@ -542,7 +559,6 @@ class Frame extends Component {
               deleteInputPin={deleteInputPin}
               deleteNode={deleteNode}
               deleteOutputPin={deleteOutputPin}
-              fontSize={fontSize}
               height={height}
               id={id}
               ins={ins}
@@ -553,6 +569,7 @@ class Frame extends Component {
               pinSize={pinSize}
               selected={(selectedItems.indexOf(id) > -1)}
               selectNode={selectItem(id)}
+              theme={theme}
               text={text}
               updateLink={onUpdateLink}
               width={width}
@@ -575,7 +592,6 @@ class Frame extends Component {
             <Link key={i}
               deleteLink={deleteLink}
               from={from}
-              lineWidth={lineWidth}
               id={id}
               onCreateLink={onCreateLink}
               startDraggingLinkTarget={startDraggingLinkTarget}
@@ -584,6 +600,7 @@ class Frame extends Component {
               selectLink={selectItem(id)}
               sourceSelected={sourceSelected}
               targetSelected={targetSelected}
+              theme={theme}
               to={to}
               x1={coord.x1}
               y1={coord.y1}
@@ -601,74 +618,12 @@ class Frame extends Component {
               showSelector: false
             })
           }}
-          nodeList={nodeList}
+          nodeList={custom.nodeList}
           pointer={pointer}
           show={showSelector}
         />
       </svg>
     )
-  }
-}
-
-Frame.propTypes = {
-  createInputPin: PropTypes.func.isRequired,
-  createOutputPin: PropTypes.func.isRequired,
-  createLink: PropTypes.func.isRequired,
-  createNode: PropTypes.func.isRequired,
-  deleteLink: PropTypes.func.isRequired,
-  deleteInputPin: PropTypes.func.isRequired,
-  deleteNode: PropTypes.func.isRequired,
-  deleteOutputPin: PropTypes.func.isRequired,
-  dragItems: PropTypes.func.isRequired,
-  endDragging: PropTypes.func.isRequired,
-  fontSize: PropTypes.number.isRequired,
-  item: PropTypes.shape({
-    link: PropTypes.object.isRequired,
-    node: PropTypes.object.isRequired,
-    util: PropTypes.shape({
-      typeOfNode: PropTypes.func.isRequired
-    })
-  }).isRequired,
-  selectLink: PropTypes.func.isRequired,
-  selectNode: PropTypes.func.isRequired,
-  theme: theme.propTypes,
-  updateLink: PropTypes.func.isRequired,
-  view: PropTypes.shape({
-    height: PropTypes.number.isRequired,
-    link: PropTypes.object.isRequired,
-    node: PropTypes.object.isRequired,
-    width: PropTypes.number.isRequired
-  }).isRequired
-}
-
-Frame.defaultProps = {
-  createLink: Function.prototype,
-  createNode: Function.prototype,
-  createInputPin: Function.prototype,
-  createOutputPin: Function.prototype,
-  deleteInputPin: Function.prototype,
-  deleteLink: Function.prototype,
-  deleteNode: Function.prototype,
-  deleteOutputPin: Function.prototype,
-  dragItems: Function.prototype,
-  endDragging: Function.prototype,
-  fontSize: 17, // FIXME fontSize seems to be ignored
-  item: {
-    link: { DefaultLink },
-    node: { DefaultNode },
-    util: {
-      typeOfNode: function (node) {
-        return 'DefaultNode'
-      }
-    }
-  },
-  theme: theme.defaultProps,
-  selectLink: Function.prototype,
-  selectNode: Function.prototype,
-  updateLink: Function.prototype,
-  view: {
-    link: {},
-    node: {}
   }
 }
 

@@ -1,24 +1,4 @@
 {
-  "presets": [
-    "es2015",
-    "react"
-  ],
-  "env": {
-    "umd": {
-      "plugins": [
-        "add-module-exports",
-        "transform-es2015-modules-umd"
-      ]
-    },
-    "development": {
-      "plugins": [
-        ["react-transform", {
-          "transforms": [{
-            "transform": "livereactload/babel-transform",
-            "imports": ["react"]
-          }]
-        }]
-      ]
-    }
-  }
+  "presets": ["es2015"],
+  "plugins": ["inferno"]
 }

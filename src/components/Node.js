@@ -1,10 +1,10 @@
-import React, { PropTypes, Component } from 'react'
+import Inferno from 'inferno' // eslint-disable-line no-unused-vars
+import Component from 'inferno-component'
 
 import no from 'not-defined'
 
 import computeNodeWidth from '../utils/computeNodeWidth'
 import ignoreEvent from '../utils/ignoreEvent'
-import theme from './theme'
 import xOfPin from '../utils/xOfPin'
 
 const minus = (pinSize) => (
@@ -18,12 +18,12 @@ const plus = (pinSize) => (
 class Node extends Component {
   getBody () {
     const {
-      fontSize,
       theme,
       text
     } = this.props
 
     const {
+      fontSize,
       pinSize
     } = theme
 
@@ -53,7 +53,6 @@ class Node extends Component {
 
   getComputedWidth () {
     const {
-      fontSize,
       ins,
       outs,
       text,
@@ -61,7 +60,10 @@ class Node extends Component {
       width
     } = this.props
 
-    const { pinSize } = theme
+    const {
+      fontSize,
+      pinSize
+    } = theme
 
     const bodyHeight = this.getBodyHeight()
 
@@ -342,48 +344,6 @@ class Node extends Component {
       </g>
     )
   }
-}
-
-Node.propTypes = {
-  bodyHeight: PropTypes.number,
-  createInputPin: PropTypes.func.isRequired,
-  createOutputPin: PropTypes.func.isRequired,
-  deleteInputPin: PropTypes.func.isRequired,
-  deleteNode: PropTypes.func.isRequired,
-  deleteOutputPin: PropTypes.func.isRequired,
-  dragging: PropTypes.bool.isRequired,
-  draggedLinkId: PropTypes.string,
-  fontSize: PropTypes.number.isRequired,
-  id: PropTypes.string,
-  ins: PropTypes.array,
-  multiSelection: PropTypes.bool.isRequired,
-  outs: PropTypes.array,
-  onCreateLink: PropTypes.func.isRequired,
-  selected: PropTypes.bool.isRequired,
-  selectNode: PropTypes.func.isRequired,
-  text: PropTypes.string.isRequired,
-  theme: theme.propTypes,
-  updateLink: PropTypes.func.isRequired,
-  width: PropTypes.number,
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired
-}
-
-Node.defaultProps = {
-  createInputPin: Function.prototype,
-  createOutputPin: Function.prototype,
-  deleteInputPin: Function.prototype,
-  deleteNode: Function.prototype,
-  deleteOutputPin: Function.prototype,
-  dragging: false,
-  draggedLinkId: null,
-  multiSelection: false,
-  onCreateLink: Function.prototype,
-  selected: false,
-  selectNode: Function.prototype,
-  text: 'Node',
-  theme: theme.defaultProps,
-  updateLink: Function.prototype
 }
 
 export default Node

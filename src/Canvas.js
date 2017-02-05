@@ -1,16 +1,14 @@
-import React from 'react'
-import { render } from 'react-dom'
-import Frame from './components/Frame'
+import Inferno from 'inferno' // eslint-disable-line no-unused-vars
+
 import EventEmitter from 'events'
 import no from 'not-defined'
-import randomString from './utils/randomString'
-import renderSVGx from 'svgx'
 
-// TODO find a better way to generate ids.
-const idLength = 3
+import Frame from './components/Frame'
+
+var randomString = require('./utils/randomString')(3)
 
 class Canvas extends EventEmitter {
-  constructor (containerId, item) {
+  constructor (containerId, options) {
     super()
 
     this.container = null
@@ -36,7 +34,7 @@ class Canvas extends EventEmitter {
 
       this.container = container
 
-      this.item = item
+      this.options = options
     }
   }
 
@@ -51,19 +49,7 @@ class Canvas extends EventEmitter {
   render (view, model, callback) {
     const container = this.container
 
-    const defaultItem = Frame.defaultProps.item
-
-    const DefaultLink = defaultItem.link.DefaultLink
-    const DefaultNode = defaultItem.node.DefaultNode
-    const typeOfNode = defaultItem.util.typeOfNode
-
-    const item = Object.assign({},
-      { link: { DefaultLink } },
-      { node: { DefaultNode } },
-      { nodeList: [] },
-      { util: { typeOfNode } },
-      this.item
-    )
+    const custom = this.options
 
     let height
     let width
@@ -121,7 +107,7 @@ class Canvas extends EventEmitter {
     }
 
     function generateId () {
-      const id = randomString(idLength)
+      const id = randomString()
 
       return (view.link[id] || view.node[id]) ? generateId() : id
     }
@@ -270,19 +256,19 @@ class Canvas extends EventEmitter {
 
     const component = (
       <Frame
+        container={container}
         createInputPin={createInputPin}
         createOutputPin={createOutputPin}
         createLink={createLink}
         createNode={createNode}
+        custom={custom}
         deleteLink={deleteLink}
         deleteInputPin={deleteInputPin}
         deleteNode={deleteNode}
         deleteOutputPin={deleteOutputPin}
         dragItems={dragItems}
         endDragging={endDragging}
-        item={item}
         model={model}
-        nodeList={item.nodeList}
         renameNode={renameNode}
         selectLink={selectLink}
         selectNode={selectNode}
@@ -293,19 +279,17 @@ class Canvas extends EventEmitter {
 
     if (container) {
       // Client side rendering.
-      render(component, container)
+      Inferno.render(component, container)
     } else {
       // Server side rendering.
-
-      const opts = { doctype: true, xmlns: true }
-      const jsx = (
+      var jsx = (
         <Frame
-          item={item}
+          custom={custom}
           view={view}
         />
       )
 
-      const outputSVG = renderSVGx(jsx, opts)
+      var outputSVG = require('svgx')(require('inferno-server').renderToString)(jsx, { doctype: true, xmlns: true })
 
       if (typeof callback === 'function') {
         callback(null, outputSVG)

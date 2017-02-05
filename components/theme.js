@@ -1,68 +1,33 @@
-(function (global, factory) {
-  if (typeof define === "function" && define.amd) {
-    define(['module', 'exports', 'react'], factory);
-  } else if (typeof exports !== "undefined") {
-    factory(module, exports, require('react'));
-  } else {
-    var mod = {
-      exports: {}
-    };
-    factory(mod, mod.exports, global.react);
-    global.theme = mod.exports;
-  }
-})(this, function (module, exports, _react) {
-  'use strict';
+'use strict';
 
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
+/*
 
+Palette from https://www.materialpalette.com/lime/grey
 
-  /*
-  
-  Palette from https://www.materialpalette.com/lime/grey
-  
-  Thanks to Tania and Lucilla.
-  
-  dark primary color #AFB42B
-  primary color #CDDC39
-  light primary color #F0F4C3
-  
-  accent color #9E9E9E
-  primary text #212121
-  secondary text #757575
-  
-  text / icons #212121
-  divider color #BDBDBD
-  */
+Thanks to Tania and Lucilla.
 
-  var defaultProps = {
-    fontFamily: 'Courier',
-    frameBorder: '1px solid #F0F4C3',
-    darkPrimaryColor: '#AFB42B',
-    primaryColor: '#CDDC39',
-    lineWidth: 3,
-    nodeBarColor: '#BDBDBD',
-    nodeBodyHeight: 20,
-    pinColor: '#757575',
-    linkColor: '#9E9E9E',
-    pinSize: 10
-  };
+dark primary color #AFB42B
+primary color #CDDC39
+light primary color #F0F4C3
 
-  var propTypes = _react.PropTypes.shape({
-    fontFamily: _react.PropTypes.string.isRequired,
-    primaryColor: _react.PropTypes.string.isRequired,
-    lineWidth: _react.PropTypes.number.isRequired,
-    linkColor: _react.PropTypes.string.isRequired,
-    nodeBarColor: _react.PropTypes.string.isRequired,
-    nodeBodyHeight: _react.PropTypes.number.isRequired,
-    pinColor: _react.PropTypes.string.isRequired,
-    pinSize: _react.PropTypes.number.isRequired
-  }).isRequired;
+accent color #9E9E9E
+primary text #212121
+secondary text #757575
 
-  exports.default = {
-    defaultProps: defaultProps,
-    propTypes: propTypes
-  };
-  module.exports = exports['default'];
-});
+text / icons #212121
+divider color #BDBDBD
+*/
+
+module.exports = {
+  fontFamily: 'Courier',
+  fontSize: 17,
+  frameBorder: '1px solid #F0F4C3',
+  darkPrimaryColor: '#AFB42B',
+  primaryColor: '#CDDC39',
+  lineWidth: 3,
+  nodeBarColor: '#BDBDBD',
+  nodeBodyHeight: 20,
+  pinColor: '#757575',
+  linkColor: '#9E9E9E',
+  pinSize: 10
+};
