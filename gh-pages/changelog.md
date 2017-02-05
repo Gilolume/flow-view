@@ -19,6 +19,8 @@ New g14n.info layouts, with link to Changelog page
 
 ## [Unreleased]
 
+- Using InfernoJS instead of React. Saved 100k in flow-view.min.js and 500k in  for flow-view.js dist files.
+
 ## [v2.12.0] - 2017-01-29
 
 ### Added
