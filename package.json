@@ -48,7 +48,9 @@
     "test"
   ],
   "jest": {
-    "modulePathIgnorePatterns": ["docs"]
+    "modulePathIgnorePatterns": [
+      "docs"
+    ]
   },
   "standard": {
     "globals": [
@@ -104,8 +106,8 @@
     "dot-editorconfig": "^1.0.1",
     "eslint-plugin-flowtype": "^2.35.1",
     "flow-bin": "^0.54.0",
+    "is-my-json-valid": "^2.16.1",
     "jest": "^21.0.1",
-    "jsonschema": "^1.2.0",
     "pre-commit": "^1.2.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",

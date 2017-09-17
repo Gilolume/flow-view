@@ -1,13 +1,13 @@
 const test = require('tape')
-const jsonschema = require('jsonschema')
+const validator = require('is-my-json-valid')
 
 const schema = require('../src/schema.json')
 const sampleView = require('../examples/render/sample-view.json')
 
-const validator = new jsonschema.Validator()
+const validate = validator(schema)
 
 test('Validate JSON schema', (t) => {
-  t.ok(validator.validate(sampleView, schema), 'sample-view.json')
+  t.ok(validate(sampleView), 'sample-view.json')
 
   t.end()
 })
