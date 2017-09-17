@@ -3,7 +3,8 @@
     "react", "es2015", "flow"
   ],
   "plugins": [
-    "transform-class-properties"
+    "transform-class-properties",
+    ["inline-json-import", {}]
   ],
   "env": {
     "umd": {

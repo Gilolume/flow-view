@@ -10,4 +10,10 @@ var _Node2 = _interopRequireDefault(_Node);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-module.exports = exports.default = { Canvas: _Canvas2.default, Node: _Node2.default };
+var schema = {
+  $schema: 'http://json-schema.org/schema#',
+  id: 'http://g14n.info/flow-view/schema.json'
+};
+
+
+module.exports = exports.default = { Canvas: _Canvas2.default, Node: _Node2.default, schema: schema };

@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "id": "http://g14n.info/flow-view/schema.json",
+  "definitions": {
+    "link": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "array",
+          "additionalItems": false,
+          "items": [ { "type": "string" }, { "type": "number" } ],
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "to": {
+          "type": "array",
+          "additionalItems": false,
+          "items": [ { "type": "string" }, { "type": "number" } ],
+          "minLength": 2,
+          "maxLength": 2
+        }
+      }
+    },
+    "node": {
+      "type": "object",
+      "properties": {
+
+      }
+    }
+  },
+  "properties": {
+    "link": {
+      "additionalProperties": {
+
+      }
+    },
+    "node": {
+      "additionalProperties": {
+
+      }
+
+    }
+  }
+}
